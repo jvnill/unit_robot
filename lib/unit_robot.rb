@@ -38,7 +38,7 @@ class UnitRobot
   def move
     x_movement, y_movement = MOVE_DIRECTION_MAPPING[direction]
 
-    @x = x + x_movement
-    @y = y + y_movement
+    @x = [[x + x_movement, 0].max, 4].min
+    @y = [[y + y_movement, 0].max, 4].min
   end
 end

@@ -103,5 +103,21 @@ describe UnitRobot do
       expect(unit_robot.y).to eq(2)
       expect(unit_robot.direction).to eq('EAST')
     end
+
+    %w[0,4,NORTH 0,4,WEST 0,0,WEST 0,0,SOUTH 4,0,SOUTH 4,0,EAST 4,4,EAST 4,4,NORTH].each do |position|
+      let(:robot) { UnitRobot.new('spec/support/input.txt') }
+
+      it "should prevent robot from moving if at #{position} and asked to MOVE" do
+        robot.instance_variable_set('@commands', ["PLACE #{position}", 'MOVE'])
+
+        robot.start
+
+        x, y, direction = position.split(',')
+
+        expect(robot.x).to eq(x.to_i)
+        expect(robot.y).to eq(y.to_i)
+        expect(robot.direction).to eq(direction)
+      end
+    end
   end
 end
