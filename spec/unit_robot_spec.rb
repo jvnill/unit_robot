@@ -136,4 +136,20 @@ describe UnitRobot do
       end
     end
   end
+
+  context 'the RIGHT command' do
+    let(:robot) { UnitRobot.new('spec/support/input.txt') }
+
+    [%w[NORTH EAST], %w[EAST SOUTH], %w[SOUTH WEST], %w[WEST NORTH]].each do |before_direction, after_direction|
+      it "should face the robot to #{after_direction} from #{before_direction}" do
+        robot.instance_variable_set('@commands', ["PLACE 0,0,#{before_direction}", 'RIGHT'])
+
+        robot.start
+
+        expect(robot.x).to eq(0)
+        expect(robot.y).to eq(0)
+        expect(robot.direction).to eq(after_direction)
+      end
+    end
+  end
 end

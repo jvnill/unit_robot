@@ -21,7 +21,7 @@ class UnitRobot
     commands.each do |command|
       if match = command.match(PLACE_REGEX)
         place(match)
-      elsif x && %w[MOVE LEFT].include?(command)
+      elsif x && %w[MOVE LEFT RIGHT].include?(command)
         send(command.downcase)
       end
     end
@@ -44,5 +44,9 @@ class UnitRobot
 
   def left
     @direction = DIRECTIONS[DIRECTIONS.index(direction) - 1]
+  end
+
+  def right
+    @direction = DIRECTIONS[(DIRECTIONS.index(direction) + 1) % 4]
   end
 end
