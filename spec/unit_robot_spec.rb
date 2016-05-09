@@ -3,7 +3,7 @@ require 'unit_robot'
 describe UnitRobot do
   context 'reading file input' do
     it 'should raise an error if file does not exist' do
-      expect { UnitRobot.new('foo.txt') }.to raise_error
+      expect { UnitRobot.new('foo.txt') }.to raise_error(ArgumentError)
     end
 
     it 'should properly read the commands as content of the file' do
