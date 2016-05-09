@@ -58,4 +58,50 @@ describe UnitRobot do
       expect(unit_robot.direction).to eq('NORTH')
     end
   end
+
+  context 'the MOVE command' do
+    it 'should properly move the robot one unit down when facing SOUTH' do
+      unit_robot = UnitRobot.new('spec/support/facing_south.txt')
+
+      unit_robot.start
+
+      expect(unit_robot.commands).to eq(['PLACE 2,2,SOUTH', 'MOVE'])
+      expect(unit_robot.x).to eq(2)
+      expect(unit_robot.y).to eq(1)
+      expect(unit_robot.direction).to eq('SOUTH')
+    end
+
+    it 'should propertly move the robot one unit up when facing NORTH' do
+      unit_robot = UnitRobot.new('spec/support/facing_north.txt')
+
+      unit_robot.start
+
+      expect(unit_robot.commands).to eq(['PLACE 2,2,NORTH', 'MOVE'])
+      expect(unit_robot.x).to eq(2)
+      expect(unit_robot.y).to eq(3)
+      expect(unit_robot.direction).to eq('NORTH')
+    end
+
+    it 'should properly move the robot one unit to the left when facing WEST' do
+      unit_robot = UnitRobot.new('spec/support/facing_west.txt')
+
+      unit_robot.start
+
+      expect(unit_robot.commands).to eq(['PLACE 2,2,WEST', 'MOVE'])
+      expect(unit_robot.x).to eq(1)
+      expect(unit_robot.y).to eq(2)
+      expect(unit_robot.direction).to eq('WEST')
+    end
+
+    it 'should properly move the robot one unit to the right when facing EAST' do
+      unit_robot = UnitRobot.new('spec/support/facing_east.txt')
+
+      unit_robot.start
+
+      expect(unit_robot.commands).to eq(['PLACE 2,2,EAST', 'MOVE'])
+      expect(unit_robot.x).to eq(3)
+      expect(unit_robot.y).to eq(2)
+      expect(unit_robot.direction).to eq('EAST')
+    end
+  end
 end
