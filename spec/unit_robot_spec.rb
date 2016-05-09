@@ -152,4 +152,15 @@ describe UnitRobot do
       end
     end
   end
+
+  context 'the REPORT command' do
+    let(:robot) { UnitRobot.new('spec/support/report.txt') }
+
+    it 'should show the coordinates of the unit robot' do
+      expect(robot.commands).to eq(['PLACE 2,2,EAST', 'MOVE', 'LEFT', 'MOVE', 'REPORT'])
+      expect(STDOUT).to receive(:puts).with('3,3,NORTH')
+
+      robot.start
+    end
+  end
 end
