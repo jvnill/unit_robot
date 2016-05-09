@@ -21,8 +21,8 @@ class UnitRobot
     commands.each do |command|
       if match = command.match(PLACE_REGEX)
         place(match)
-      elsif x && command == 'MOVE'
-        move
+      elsif x && %w[MOVE LEFT].include?(command)
+        send(command.downcase)
       end
     end
   end
@@ -40,5 +40,9 @@ class UnitRobot
 
     @x = [[x + x_movement, 0].max, 4].min
     @y = [[y + y_movement, 0].max, 4].min
+  end
+
+  def left
+    @direction = DIRECTIONS[DIRECTIONS.index(direction) - 1]
   end
 end
