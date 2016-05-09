@@ -12,15 +12,17 @@ class UnitRobot
 
   def start
     commands.each do |command|
-      place(match) if match = command.match(PLACE_REGEX)
+      if match = command.match(PLACE_REGEX)
+        place(match)
+      end
     end
   end
 
   private
 
   def place(match)
-    self.x = match['x']
-    self.y = match['y']
-    self.direction = match['direction']
+    @x = match['x'].to_i
+    @y = match['y'].to_i
+    @direction = match['direction']
   end
 end

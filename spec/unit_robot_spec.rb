@@ -24,5 +24,38 @@ describe UnitRobot do
       expect(unit_robot.y).to be_nil
       expect(unit_robot.direction).to be_nil
     end
+
+    it 'should ignore all commands before a proper PLACE command is issued' do
+      unit_robot = UnitRobot.new('spec/support/no_place.txt')
+
+      unit_robot.start
+
+      expect(unit_robot.commands).to eq(['MOVE', 'LEFT', 'MOVE', 'RIGHT'])
+      expect(unit_robot.x).to be_nil
+      expect(unit_robot.y).to be_nil
+      expect(unit_robot.direction).to be_nil
+    end
+
+    it 'should properly set the initial position of the robot' do
+      unit_robot = UnitRobot.new('spec/support/valid_place.txt')
+
+      unit_robot.start
+
+      expect(unit_robot.commands).to eq(['MOVE', 'LEFT', 'PLACE 2,2,WEST'])
+      expect(unit_robot.x).to eq(2)
+      expect(unit_robot.y).to eq(2)
+      expect(unit_robot.direction).to eq('WEST')
+    end
+
+    it 'should move the robot to the specified coordinate based on the last valid PLACE command' do
+      unit_robot = UnitRobot.new('spec/support/multiple_place.txt')
+
+      unit_robot.start
+
+      expect(unit_robot.commands).to eq(['PLACE 0,0,NORTH', 'PLACE 1,1,EAST', 'MOVE', 'PLACE 4,4,NORTH', 'PLACE 5,5,EAST'])
+      expect(unit_robot.x).to eq(4)
+      expect(unit_robot.y).to eq(4)
+      expect(unit_robot.direction).to eq('NORTH')
+    end
   end
 end
